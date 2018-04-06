@@ -6,12 +6,11 @@ const app = new Koa()
 app.use(koaBody())
 const router = new Router()
 
-const LoadGenerator = require('./load-generator')
-const generator = new LoadGenerator()
+const loadGenerator = require('./load-generator')
 
 router.get('/:id', (ctx, next) => {
   const result = []
-  const keys = generator.tasks.keys()
+  const keys = loadGenerator.tasks.keys()
   for (const key of keys) {
     result.push(key)
   }
@@ -21,12 +20,12 @@ router.get('/:id', (ctx, next) => {
 router.post('/:id', (ctx, next) => {
   const definition = JSON.parse(ctx.request.body)
 
-  generator.start(ctx.params.id, definition)
+  loadGenerator.start(ctx.params.id, definition)
   ctx.body = 'started'
 })
 
 router.delete('/:id', (ctx, next) => {
-  generator.stop(ctx.params.id)
+  loadGenerator.stop(ctx.params.id)
   ctx.body = 'removed'
 })
 

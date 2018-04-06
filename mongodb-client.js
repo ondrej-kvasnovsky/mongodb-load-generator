@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const MongoClient = require('mongodb').MongoClient
-const BSON = require('bson')
 
 module.exports = class MongoDBClient {
   constructor(definition) {
@@ -13,15 +12,19 @@ module.exports = class MongoDBClient {
     const items = await db.collection(this.definition.collection)
     console.log('Connected successfully to server')
 
+    if (this.definition.query.type === 'insert') {
+      await this.insert(items)
+    } else {
+      console.log('Nothing to do...')
+    }
+  }
+
+  async insert(items) {
     const document = JSON.parse(this.definition.query.document)
     const documents = []
     const times = this.definition.query.times
     _.range(times).forEach(it => documents.push(Object.assign({}, document)))
-    if (this.definition.query.type === 'insert') {
-      const inserted = await items.insertMany(documents)
-      console.log(`Inserted ${JSON.stringify(inserted)}`)
-    } else {
-      console.log('Nothing to do...')
-    }
+    const inserted = await items.insertMany(documents)
+    console.log(`Inserted ${JSON.stringify(inserted)}`)
   }
 }
