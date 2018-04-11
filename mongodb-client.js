@@ -20,7 +20,7 @@ module.exports = class MongoDBClient {
   }
 
   async insert(items) {
-    const document = JSON.parse(this.definition.query.document)
+    const document = this.definition.query.document
     const documents = []
     const times = this.definition.query.times
     _.range(times).forEach(it => documents.push(Object.assign({}, document)))
