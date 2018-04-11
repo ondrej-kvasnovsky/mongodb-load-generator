@@ -24,7 +24,7 @@ curl -X "POST" "http://localhost:4444/test" \
   "collection": "items",
   "query": {
     "type": "insert",
-    "document": "{\\"ukulele\\": 1}",
+    "document": {"ukulele": 1},
     "times": 5
   }
 }'
