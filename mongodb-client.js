@@ -17,6 +17,7 @@ module.exports = class MongoDBClient {
     } else {
       console.log('Nothing to do...')
     }
+    client.close()
   }
 
   async insert(items) {
@@ -25,6 +26,6 @@ module.exports = class MongoDBClient {
     const times = this.definition.query.times
     _.range(times).forEach(it => documents.push(Object.assign({}, document)))
     const inserted = await items.insertMany(documents)
-    console.log(`Inserted ${JSON.stringify(inserted)}`)
+    // console.log(`Inserted ${JSON.stringify(inserted)}`)
   }
 }
