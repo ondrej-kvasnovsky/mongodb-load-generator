@@ -14,6 +14,8 @@ module.exports = class MongoDBClient {
 
     if (this.definition.query.type === 'insert') {
       await this.insert(items)
+    } else if (this.definition.query.type === 'delete') {
+      await this.delete(items)
     } else {
       console.log('Nothing to do...')
     }
@@ -27,5 +29,9 @@ module.exports = class MongoDBClient {
     _.range(times).forEach(it => documents.push(Object.assign({}, document)))
     const inserted = await items.insertMany(documents)
     // console.log(`Inserted ${JSON.stringify(inserted)}`)
+  }
+
+  async delete(items) {
+      await items.deleteMany()
   }
 }
