@@ -10,7 +10,7 @@
     "koa-body": "^2.5.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.13",
-    "mongodb": "^3.0.5",
+    "mongodb": "^3.1.13",
     "node-cron": "^1.2.1"
   }
 }
